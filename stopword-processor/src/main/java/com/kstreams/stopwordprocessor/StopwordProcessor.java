@@ -20,9 +20,9 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class StopwordProcessor {
 
-  public static final String BLOG_CREATED_TOPIC = "blog_created_event_topic";
+  public static final String BLOG_CREATED_TOPIC = "blog_created_event_topic_v3";
 
-  public static final String STOP_WORD_REMOVED_TOPIC = "stop_word_removed_topic";
+  public static final String STOP_WORD_REMOVED_TOPIC = "stop_word_removed_topic_v3";
 
   @Autowired private StopWord stopWord;
 
@@ -41,6 +41,6 @@ public class StopwordProcessor {
   BlogCreatedEvent removeStopWord(BlogCreatedEvent event) {
     String title = stopWord.process(event.getTitle());
     String content = stopWord.process(event.getContent());
-    return new BlogCreatedEvent(event.getUserId(), title, content);
+    return new BlogCreatedEvent(event.getId(), event.getUserId(), title, content);
   }
 }

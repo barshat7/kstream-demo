@@ -3,6 +3,8 @@ package com.kstreams.events;
 
 public class BlogCreatedEvent {
 
+  private Long id;
+
   private String userId;
 
   private String title;
@@ -11,7 +13,8 @@ public class BlogCreatedEvent {
 
   public BlogCreatedEvent() {}
 
-  public BlogCreatedEvent(String userId, String title, String content) {
+  public BlogCreatedEvent(Long id, String userId, String title, String content) {
+    this.id = id;
     this.userId = userId;
     this.title = title;
     this.content = content;
@@ -28,4 +31,6 @@ public class BlogCreatedEvent {
   public String getContent() {
     return content;
   }
+
+  public Long getId() {return id;}
 }

@@ -12,7 +12,9 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class BlogEventListener {
 
-  private static final String topic = "stop_word_removed_topic";
+  private static final String topic = "stop_word_removed_topic_v3";
+
+  private final ElasticSearchService elasticSearchService;
 
   @KafkaListener(topics = topic)
   public void on(@Payload BlogCreatedEvent event) {
@@ -21,5 +23,8 @@ public class BlogEventListener {
         event.getUserId(),
         event.getTitle(),
         event.getContent());
+    var id = elasticSearchService.save(
+        new BlogESEntity(event.getId(), event.getTitle(), event.getContent()));
+    log.info("Indexing Done {}", id);
   }
 }
